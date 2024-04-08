@@ -1,0 +1,52 @@
+@import '../../styles/primitives';
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+.categoryContainer {
+    width: 100%;
+    border-bottom: solid 1px $color-grey-200;
+    padding-bottom: 1px;
+    .category {
+        width: fit-content;
+        padding: 0.25rem 0.5rem;
+        background-color: $color-error-600;
+        color: white;
+        border-radius: 0.25rem;
+    }
+}
+
+.imageContainer {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    .image {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+    }
+}
+
+.caption {
+    color: $color-grey-600;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.title {
+    color: $color-grey-900;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.link {
+    margin: auto auto 0 0;
+    color: #033785;
+}

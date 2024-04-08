@@ -1,0 +1,55 @@
+@import '../../styles/primitives';
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.searchBar {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: $color-grey-50;
+}
+
+.inputContainer {
+    flex-grow: 1;
+    @media (min-width: 640px) {
+        max-width: 400px;
+    }
+}
+.buttonContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+.content {
+    padding: 2rem;
+    @media (max-width: 640px) {
+        padding: 1rem;
+    }
+}
+
+.gridContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 4rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    @media (min-width: 640px) and (max-width: 1100px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 640px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.loaderContainer {
+    margin: auto;
+}
