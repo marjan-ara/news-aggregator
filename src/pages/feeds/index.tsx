@@ -7,10 +7,21 @@ import css from './feeds.module.scss';
 import NewsCard from 'src/components/NewsCard';
 import { useFeeds } from './useFeeds';
 import NoResult from 'src/components/NoResult';
+import FilterMenu from 'src/components/FilterMenu';
 
 const Feeds = () => {
-  const { newsItems, loadMore, hasMore, searchTerm, handleChangeSearch, fetchNews, handleEnterInput, loading } =
-    useFeeds();
+  const {
+    newsItems,
+    loadMore,
+    hasMore,
+    searchTerm,
+    handleChangeSearch,
+    fetchNews,
+    handleEnterInput,
+    loading,
+    openFilterMenu,
+    setOpenFilterMenu,
+  } = useFeeds();
   return (
     <div className={css.container}>
       <div className={css.searchBar}>
@@ -24,7 +35,7 @@ const Feeds = () => {
             placeholder="Search"
             endAdornment={
               <InputAdornment position="end">
-                <IconButton onClick={fetchNews} edge="end">
+                <IconButton onClick={() => fetchNews()} edge="end">
                   <SearchIcon />
                 </IconButton>
               </InputAdornment>
@@ -33,7 +44,12 @@ const Feeds = () => {
           />
         </div>
         <div className={css.buttonContainer}>
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              console.log('test log click');
+              setOpenFilterMenu(true);
+            }}
+          >
             <FilterListIcon />
           </IconButton>
           <IconButton>
@@ -67,6 +83,9 @@ const Feeds = () => {
         </InfiniteScroll>
       ) : (
         <NoResult />
+      )}
+      {openFilterMenu && (
+        <FilterMenu open={openFilterMenu} onClose={() => setOpenFilterMenu(false)} fetchNews={fetchNews} />
       )}
     </div>
   );

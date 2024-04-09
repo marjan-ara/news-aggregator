@@ -1,4 +1,4 @@
-export type NewsSource = 'NEWS API' | 'New Yourk Times' | 'The Guardian';
+export type NewsSource = 'News API' | 'New Yourk Times' | 'The Guardian';
 
 export interface NewsFilter {
   q?: string;

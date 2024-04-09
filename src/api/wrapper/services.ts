@@ -13,7 +13,7 @@ const mapNewsApiResult = (article: newsApiArticle) => {
   const newsapiSources = store.getState().newsapi.sources;
   try {
     const mapped: Article = {
-      source: 'NEWS API',
+      source: 'News API',
       author: article.author,
       title: article.title,
       description: article.content,
@@ -131,11 +131,13 @@ const getGuardianArticles = async (params: NewsFilter) => {
 };
 
 export const getNews = async (params: NewsFilter) => {
+  console.log('test log getNews', params);
   const { sources } = params;
   const requests = [];
-  if (sources.includes('NEWS API')) requests.push(getNewsApiArticles(params));
+  if (sources.includes('News API')) requests.push(getNewsApiArticles(params));
   if (sources.includes('New Yourk Times')) requests.push(getNYTimesArticles(params));
   if (sources.includes('The Guardian')) requests.push(getGuardianArticles(params));
+
   const res = await Promise.all(requests);
   const articles: Article[] = Array.prototype.concat.apply([], res).sort(compareByDate);
   const output = { total: articles.length, articles };

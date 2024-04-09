@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import store, { RootState } from '../../store';
 import { Source } from '../../api/news_api/news_api.types';
-import { Article } from '../../api/wrapper/types';
+import { Article, NewsSource } from '../../api/wrapper/types';
 import { useEffect, useState } from 'react';
 import { getAllSources } from '../../store/thunks/newsapi.thunk';
 import { getNews } from '../../api/wrapper/services';
@@ -13,16 +13,19 @@ export const useFeeds = () => {
   const [hasMore, sethasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [openFilterMenu, setOpenFilterMenu] = useState(false);
 
   useEffect(() => {
     if (!newsapiSources.length) store.dispatch(getAllSources());
   }, []);
 
-  const fetchNews = async () => {
+  const fetchNews = async (sources?: NewsSource[]) => {
+    if (!newsapiSources.length) return;
+    console.log('test log fetchNews', sources);
     setLoading(true);
     try {
       const res = await getNews({
-        sources: ['NEWS API', 'New Yourk Times', 'The Guardian'],
+        sources: !sources?.length ? ['News API', 'New Yourk Times', 'The Guardian'] : sources,
         q: searchTerm,
         pageNumber: 1,
         pageSize: 10,
@@ -35,7 +38,6 @@ export const useFeeds = () => {
     }
   };
   useEffect(() => {
-    if (!newsapiSources.length) return;
     fetchNews();
   }, [newsapiSources]);
 
@@ -43,7 +45,7 @@ export const useFeeds = () => {
     if (hasMore) {
       try {
         const res = await getNews({
-          sources: ['NEWS API', 'New Yourk Times', 'The Guardian'],
+          sources: ['News API', 'New Yourk Times', 'The Guardian'],
           pageNumber: page,
           pageSize: 10,
           q: searchTerm,
@@ -78,5 +80,7 @@ export const useFeeds = () => {
     fetchNews,
     handleEnterInput,
     loading,
+    openFilterMenu,
+    setOpenFilterMenu,
   };
 };

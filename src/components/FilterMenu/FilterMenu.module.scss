@@ -1,0 +1,39 @@
+@import '../../styles/primitives';
+
+.container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 400px;
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $color-grey-200;
+    background-color: white;
+    @media screen and (max-width: 600px) {
+        width: 100%;
+    }
+}
+
+.header {
+    width: 100%;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $color-grey-200;
+    margin-bottom: 3rem;
+}
+
+.textGray900 {
+    color: $color-grey-900;
+}
+
+.actionDiv {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin-top: auto;
+    margin-bottom: 0;
+}
