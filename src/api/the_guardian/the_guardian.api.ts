@@ -1,8 +1,8 @@
 import { get } from './http';
-import { NewsFilter, NewsRes, TagRes } from './the_guardian.types';
+import { CategoryRes, NewsFilter, NewsRes } from './the_guardian.types';
 
-export async function tags(): Promise<TagRes> {
-  return (await get<TagRes>('tags')).data;
+export async function categories(): Promise<CategoryRes> {
+  return (await get<CategoryRes>('sections')).data;
 }
 
 export async function news(params: NewsFilter): Promise<NewsRes> {

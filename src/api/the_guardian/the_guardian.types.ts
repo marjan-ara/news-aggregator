@@ -41,23 +41,18 @@ export interface NewsRes {
   };
 }
 
-export interface Tag {
+export interface Category {
   id: string;
-  type: string;
   webTitle: string;
   webUrl: string;
   apiUrl: string;
-  sectionId: string;
-  sectionName: string;
 }
 
-export interface TagRes {
-  status: string;
-  userTier: string;
-  total: number;
-  startIndex: number;
-  pageSize: number;
-  currentPage: number;
-  pages: number;
-  results: Tag[];
+export interface CategoryRes {
+  response: {
+    status: string;
+    userTier: string;
+    total: number;
+    results: Category[];
+  };
 }

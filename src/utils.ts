@@ -37,7 +37,7 @@ export const toRelativeTime = (date: string) => {
     }
     return moment(timestamp).startOf('hour').fromNow();
   } else {
-    return moment(isoStr).format('DD/MM/YYYY'); //moment(timestamp).startOf('day').fromNow();
+    return moment(isoStr).format('DD/MM/YYYY');
   }
 };
 

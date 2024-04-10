@@ -1,16 +1,18 @@
-@import '../../styles/primitives';
+@import 'src/styles/primitives';
 
 .container {
     position: fixed;
     right: 0;
     top: 0;
     height: 100%;
+    overflow-y: auto;
     width: 400px;
     z-index: 1200;
     display: flex;
     flex-direction: column;
     border: 1px solid $color-grey-200;
     background-color: white;
+    padding-bottom: 1rem;
     @media screen and (max-width: 600px) {
         width: 100%;
     }
@@ -18,12 +20,12 @@
 
 .header {
     width: 100%;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid $color-grey-200;
-    margin-bottom: 3rem;
+    background-color: $color-grey-200;
 }
 
 .textGray900 {
@@ -36,4 +38,19 @@
     padding: 0.5rem;
     margin-top: auto;
     margin-bottom: 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.calenderRow {
+    flex-direction: column;
+
+    gap: 1rem;
+}
+
+.btn {
+    text-transform: none;
 }

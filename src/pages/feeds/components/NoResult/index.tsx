@@ -1,6 +1,6 @@
 import css from './NoResult.module.scss';
-import image from '../../assets/noresult.jpg';
-import { Button, Typography } from '@mui/material';
+import image from 'src/assets/noresult.jpg';
+import { Typography } from '@mui/material';
 
 const NoResult = () => {
   return (

@@ -1,3 +1,64 @@
+export const CATEGORIES = [
+  'Africa',
+  'Americas',
+  'ArtandDesign',
+  'Arts',
+  'AsiaPacific',
+  'Automobiles',
+  'Baseball',
+  'Books/Review',
+  'Business',
+  'Climate',
+  'CollegeBasketball',
+  'CollegeFootball',
+  'Dance',
+  'Dealbook',
+  'DiningandWine',
+  'Economy',
+  'Education',
+  'EnergyEnvironment',
+  'Europe',
+  'FashionandStyle',
+  'Golf',
+  'Health',
+  'Hockey',
+  'HomePage',
+  'Jobs',
+  'Lens',
+  'MediaandAdvertising',
+  'MiddleEast',
+  'MostEmailed',
+  'MostShared',
+  'MostViewed',
+  'Movies',
+  'Music',
+  'NYRegion',
+  'Obituaries',
+  'PersonalTech',
+  'Politics',
+  'ProBasketball',
+  'ProFootball',
+  'RealEstate',
+  'Science',
+  'SmallBusiness',
+  'Soccer',
+  'Space',
+  'Sports',
+  'SundayBookReview',
+  'Sunday-Review',
+  'Technology',
+  'Television',
+  'Tennis',
+  'Theater',
+  'TMagazine',
+  'Travel',
+  'Upshot',
+  'US',
+  'Weddings',
+  'Well',
+  'World',
+  'YourMoney',
+];
 export interface NewsFilter {
   page: number;
   q?: string;
@@ -22,6 +83,7 @@ interface Keyword {
   major: string;
 }
 export interface Article {
+  _id: string;
   web_url: string;
   news_desk: NYTimesCategory;
   snippet?: string;

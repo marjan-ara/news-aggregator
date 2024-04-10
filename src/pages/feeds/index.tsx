@@ -4,10 +4,10 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import css from './feeds.module.scss';
-import NewsCard from 'src/components/NewsCard';
+import NewsCard from 'src/pages/feeds/components/NewsCard';
 import { useFeeds } from './useFeeds';
-import NoResult from 'src/components/NoResult';
-import FilterMenu from 'src/components/FilterMenu';
+import NoResult from 'src/pages/feeds/components/NoResult';
+import FilterMenu from 'src/pages/feeds/components/FilterMenu';
 
 const Feeds = () => {
   const {
@@ -21,6 +21,10 @@ const Feeds = () => {
     loading,
     openFilterMenu,
     setOpenFilterMenu,
+    categories,
+    authors,
+    filters,
+    setfilters,
   } = useFeeds();
   return (
     <div className={css.container}>
@@ -44,20 +48,11 @@ const Feeds = () => {
           />
         </div>
         <div className={css.buttonContainer}>
-          <IconButton
-            onClick={() => {
-              console.log('test log click');
-              setOpenFilterMenu(true);
-            }}
-          >
+          <IconButton onClick={() => setOpenFilterMenu(true)}>
             <FilterListIcon />
-          </IconButton>
-          <IconButton>
-            <SettingsIcon />
           </IconButton>
         </div>
       </div>
-      {/* TO DO: replace key by news id  */}
       {loading ? (
         <div className={css.loaderContainer}>
           <CircularProgress size={90} />
@@ -74,7 +69,7 @@ const Feeds = () => {
           <div className={css.content}>
             <div className={css.gridContainer}>
               {newsItems.map((item, index) => (
-                <div key={`${item.source}-${index}`}>
+                <div key={item.webUrl}>
                   <NewsCard news={item} />
                 </div>
               ))}
@@ -85,7 +80,15 @@ const Feeds = () => {
         <NoResult />
       )}
       {openFilterMenu && (
-        <FilterMenu open={openFilterMenu} onClose={() => setOpenFilterMenu(false)} fetchNews={fetchNews} />
+        <FilterMenu
+          open={openFilterMenu}
+          onClose={() => setOpenFilterMenu(false)}
+          fetchNews={fetchNews}
+          categories={categories}
+          authors={authors}
+          filters={filters}
+          setFilters={setfilters}
+        />
       )}
     </div>
   );

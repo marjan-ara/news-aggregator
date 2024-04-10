@@ -1,14 +1,17 @@
 export type NewsSource = 'News API' | 'New Yourk Times' | 'The Guardian';
 
-export interface NewsFilter {
+export interface Filter {
+  category?: Category[];
+  sources?: NewsSource[];
+  author?: string[];
+  from?: Date;
+  to?: Date;
+}
+
+export interface QueryFilter extends Filter {
   q?: string;
   pageNumber: number;
   pageSize: number;
-  from?: Date;
-  to?: Date;
-  category?: string[];
-  sources: NewsSource[];
-  author?: string[];
 }
 
 export interface Article {
@@ -25,4 +28,14 @@ export interface Article {
 export interface NewsRes {
   total: number;
   articles: Article[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  source: NewsSource;
+}
+
+export interface CategoryRes {
+  items: Category[];
 }

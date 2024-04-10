@@ -1,8 +1,8 @@
 import React from 'react';
-import { Article } from '../../api/wrapper/types';
+import { Article } from 'src/api/wrapper/types';
 import css from './NewsCard.module.scss';
 import { Link, Typography } from '@mui/material';
-import { toRelativeTime } from '../../utils';
+import { toRelativeTime } from 'src/utils';
 
 interface NewsCardProps {
   news: Article;

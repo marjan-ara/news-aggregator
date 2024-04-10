@@ -1,42 +1,58 @@
 import { useSelector } from 'react-redux';
-import store, { RootState } from '../../store';
-import { Source } from '../../api/news_api/news_api.types';
-import { Article, NewsSource } from '../../api/wrapper/types';
+import store, { RootState } from 'src/store';
+import { Source } from 'src/api/news_api/news_api.types';
+import { Article, Category, Filter } from 'src/api/wrapper/types';
 import { useEffect, useState } from 'react';
-import { getAllSources } from '../../store/thunks/newsapi.thunk';
-import { getNews } from '../../api/wrapper/services';
+import { getAllSources } from 'src/store/thunks/newsapi.thunk';
+import { getCategories, getNews } from 'src/api/wrapper/services';
 
 export const useFeeds = () => {
   const newsapiSources = useSelector<RootState, Source[]>(state => state.newsapi.sources);
   const [loading, setLoading] = useState(false);
+  const [categories, setcategories] = useState<Category[]>([]);
+  const [authors, setAuthors] = useState<string[]>([]);
   const [newsItems, setNewsItems] = useState<Article[]>([]);
   const [hasMore, sethasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [openFilterMenu, setOpenFilterMenu] = useState(false);
+  const [filters, setfilters] = useState<Filter>({ author: [], category: [], sources: [] });
+
+  const fetchCategories = async () => {
+    const res = await getCategories();
+    setcategories(res);
+  };
 
   useEffect(() => {
     if (!newsapiSources.length) store.dispatch(getAllSources());
+    fetchCategories();
+    const savedFilters = localStorage.getItem('filters');
+    if (!!savedFilters) setfilters(JSON.parse(savedFilters));
   }, []);
 
-  const fetchNews = async (sources?: NewsSource[]) => {
+  const fetchNews = async () => {
     if (!newsapiSources.length) return;
-    console.log('test log fetchNews', sources);
     setLoading(true);
     try {
       const res = await getNews({
-        sources: !sources?.length ? ['News API', 'New Yourk Times', 'The Guardian'] : sources,
         q: searchTerm,
         pageNumber: 1,
         pageSize: 10,
+        ...filters,
       });
       setNewsItems(res.articles);
+      const autherList = new Set([
+        ...(filters.author || []),
+        ...res.articles.filter(item => !!item.author).map(item => item.author || ''),
+      ]);
+      setAuthors(Array.from(autherList));
       setLoading(false);
     } catch (e) {
       console.log('error in fetchNews', e);
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchNews();
   }, [newsapiSources]);
@@ -45,13 +61,19 @@ export const useFeeds = () => {
     if (hasMore) {
       try {
         const res = await getNews({
-          sources: ['News API', 'New Yourk Times', 'The Guardian'],
           pageNumber: page,
           pageSize: 10,
           q: searchTerm,
+          ...filters,
         });
         if (res.articles.length) {
-          setNewsItems([...newsItems, ...res.articles]);
+          const newItems = [...newsItems, ...res.articles];
+          setNewsItems(newItems);
+          const autherList = new Set([
+            ...(filters.author || []),
+            ...newItems.filter(item => !!item.author).map(item => item.author || ''),
+          ]);
+          setAuthors(Array.from(autherList));
           setPage(page + 1);
         } else {
           sethasMore(false);
@@ -82,5 +104,9 @@ export const useFeeds = () => {
     loading,
     openFilterMenu,
     setOpenFilterMenu,
+    categories,
+    authors,
+    filters,
+    setfilters,
   };
 };

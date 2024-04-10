@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Source } from '../../api/news_api/news_api.types';
-import { getAllSources } from '../thunks/newsapi.thunk';
+import { Category, Source } from 'src/api/news_api/news_api.types';
+import { getAllSources } from 'src/store/thunks/newsapi.thunk';
 
 interface NewsApiState {
   sources: Source[];
+  categories: Category[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string;
 }
 
 const initialState = {
   sources: [],
+  categories: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
   status: 'idle',
   error: '',
 } as NewsApiState;
